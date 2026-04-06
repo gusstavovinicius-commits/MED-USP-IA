@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HC·USP Residência</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#0c0e14;--surface:#13151f;--surface2:#1a1d2a;--border:#252836;--border2:#313550;--text:#e8eaf2;--text2:#9aa3bf;--text3:#5a6380;--accent:#4f8ef7;--accent2:#7c5cf7;--accent3:#f74f8e;--green:#3de89e;--yellow:#f7c84f;--red:#f74f4f;--shadow:0 4px 24px rgba(0,0,0,.5)}
+.light{--bg:#f0f2f8;--surface:#fff;--surface2:#e8eaf2;--border:#d0d4e8;--border2:#b8bdd8;--text:#0c0e14;--text2:#3a4060;--text3:#7a84a8;--shadow:0 4px 24px rgba(0,0,0,.1)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s}
+header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:56px}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;letter-spacing:-.5px}.logo span{color:var(--accent)}
+.hright{display:flex;align-items:center;gap:10px}
+.badge{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 8px;border-radius:4px;background:var(--surface2);border:1px solid var(--border);color:var(--text2)}
+.badge.g{border-color:var(--green);color:var(--green)}
+.thbtn{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:5px 10px;cursor:pointer;color:var(--text2);font-size:15px;transition:all .2s}
+.thbtn:hover{border-color:var(--accent);color:var(--accent)}
+.layout{display:flex;height:calc(100vh - 56px)}
+aside{width:210px;min-width:210px;background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;padding:14px 0}
+.nlabel{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);padding:6px 16px 2px}
+.nitem{display:flex;align-items:center;gap:9px;padding:9px 20px;cursor:pointer;transition:all .15s;font-size:13px;color:var(--text2);border-left:3px solid transparent}
+.nitem:hover{background:var(--surface2);color:var(--text)}
+.nitem.active{background:rgba(79,142,247,.1);border-left-color:var(--accent);color:var(--accent)}
+main{flex:1;overflow-y:auto;padding:24px;background:var(--bg)}
+.page{display:none}.page.active{display:block}
+.ptitle{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;letter-spacing:-.8px;margin-bottom:4px}
+.psub{font-size:13px;color:var(--text2);margin-bottom:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 22px;box-shadow:var(--shadow)}
+.ctitle{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);margin-bottom:14px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px}
+.sb{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.sl{font-size:10px;color:var(--text3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.8px}
+.sv{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;line-height:1}
+.ss{font-size:11px;color:var(--text3);margin-top:3px}
+.cb{color:var(--accent)}.cp{color:var(--accent2)}.ck{color:var(--accent3)}.cg{color:var(--green)}
+.br{margin-bottom:12px}
+.bh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.bn{font-size:12.5px;font-weight:500}
+.bp{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text2)}
+.bbg{height:7px;background:var(--surface2);border-radius:4px;overflow:hidden}
+.bf{height:100%;border-radius:4px;transition:width .6s ease}
+.bblue{background:linear-gradient(90deg,var(--accent),var(--accent2))}
+.bgreen{background:linear-gradient(90deg,var(--green),#20c080)}
+.byellow{background:linear-gradient(90deg,var(--yellow),#f09a20)}
+.bpink{background:linear-gradient(90deg,var(--accent3),#c030a0)}
+.bteal{background:linear-gradient(90deg,#4ff7d0,#20a0c0)}
+.tlist{display:flex;flex-wrap:wrap;gap:7px}
+.tag{font-size:11px;font-family:'IBM Plex Mono',monospace;padding:3px 9px;border-radius:4px;background:var(--surface2);border:1px solid var(--border);color:var(--text2)}
+.tag.hot{border-color:var(--accent3);color:var(--accent3);background:rgba(247,79,142,.07)}
+.tag.warn{border-color:var(--yellow);color:var(--yellow);background:rgba(247,200,79,.07)}
+.tag.ok{border-color:var(--green);color:var(--green);background:rgba(61,232,158,.07)}
+.tag.blue{border-color:var(--accent);color:var(--accent);background:rgba(79,142,247,.07)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;padding:9px 12px;background:var(--surface2);color:var(--text3);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--border)}
+td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface2)}
+.pill{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-family:'IBM Plex Mono',monospace;font-weight:500}
+.pr{background:rgba(247,79,79,.15);color:var(--red)}
+.py{background:rgba(247,200,79,.15);color:var(--yellow)}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:9px;margin-bottom:20px}
+.hi{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:11px 13px;position:relative;overflow:hidden}
+.hi::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+.h1::before{background:var(--accent3)}.h2::before{background:var(--yellow)}.h3::before{background:var(--accent)}.h4::before{background:var(--green)}
+.hl{font-size:11.5px;font-weight:600;margin-bottom:3px}
+.hc{font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:700;color:var(--text3)}
+.h1 .hc{color:var(--accent3)}.h2 .hc{color:var(--yellow)}.h3 .hc{color:var(--accent)}.h4 .hc{color:var(--green)}
+.hs{font-size:10px;color:var(--text3);margin-top:1px}
+.fn{background:rgba(247,200,79,.06);border:1px solid rgba(247,200,79,.25);border-radius:8px;padding:13px 17px;margin-bottom:10px;font-size:13px;line-height:1.65}
+.fn .ft{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:var(--yellow);margin-bottom:7px}
+.fn.red{background:rgba(247,79,79,.06);border-color:rgba(247,79,79,.25)}.fn.red .ft{color:var(--red)}
+.fn.blue{background:rgba(79,142,247,.06);border-color:rgba(79,142,247,.25)}.fn.blue .ft{color:var(--accent)}
+.sh{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;letter-spacing:-.3px;margin-bottom:10px;margin-top:22px;display:flex;align-items:center;gap:9px}
+.sh::after{content:'';flex:1;height:1px;background:var(--border)}
+hr.div{border:none;border-top:1px solid var(--border);margin:16px 0}
+.mtabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:14px}
+.mtab{padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;color:var(--text3);transition:all .15s}
+.mtab:hover{color:var(--text)}.mtab.active{border-bottom-color:var(--accent);color:var(--accent)}
+.chatbox{overflow-y:auto;padding:10px 0;display:flex;flex-direction:column;gap:10px;min-height:280px;max-height:52vh}
+.msg{max-width:88%;padding:11px 15px;border-radius:10px;font-size:13.5px;line-height:1.6}
+.msg.user{align-self:flex-end;background:var(--accent);color:#fff;border-radius:10px 10px 2px 10px}
+.msg.assistant{align-self:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:10px 10px 10px 2px;color:var(--text)}
+.msg.sys{align-self:center;font-size:11px;font-family:'IBM Plex Mono',monospace;color:var(--text3);background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 12px;max-width:100%}
+.typing{display:flex;gap:5px;align-items:center;padding:11px 15px;background:var(--surface);border:1px solid var(--border);border-radius:10px;align-self:flex-start;max-width:70px}
+.td{width:6px;height:6px;border-radius:50%;background:var(--text3);animation:ty 1.2s infinite ease-in-out}
+.td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
+@keyframes ty{0%,80%,100%{opacity:.2;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+.cirow{display:flex;gap:9px;margin-top:10px;background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:9px 13px;align-items:flex-end;transition:border-color .2s}
+.cirow:focus-within{border-color:var(--accent)}
+.ci{flex:1;background:none;border:none;outline:none;font-family:'IBM Plex Sans',sans-serif;font-size:13.5px;color:var(--text);resize:none;line-height:1.5;min-height:22px;max-height:110px}
+.ci::placeholder{color:var(--text3)}
+.sbtn{background:var(--accent);border:none;border-radius:7px;padding:7px 13px;color:#fff;font-size:13px;cursor:pointer;transition:opacity .2s;white-space:nowrap;font-family:'IBM Plex Sans',sans-serif;font-weight:500}
+.sbtn:hover{opacity:.85}.sbtn:disabled{opacity:.4;cursor:not-allowed}
+.clrbtn{background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:7px 11px;color:var(--text2);font-size:12px;cursor:pointer;font-family:'IBM Plex Mono',monospace}
+.clrbtn:hover{border-color:var(--red);color:var(--red)}
+.qa{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+.qbtn{font-size:11.5px;padding:5px 11px;border-radius:5px;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text2);transition:all .15s;font-family:'IBM Plex Mono',monospace}
+.qbtn:hover{border-color:var(--accent);color:var(--accent);background:rgba(79,142,247,.07)}
+.msg.assistant strong{color:var(--accent)}
+.msg.assistant h3{font-size:13.5px;margin:9px 0 5px;color:var(--accent);font-family:'Syne',sans-serif}
+.msg.assistant h4{font-size:12.5px;margin:7px 0 3px;color:var(--yellow)}
+.msg.assistant code{background:var(--surface2);border:1px solid var(--border);padding:1px 5px;border-radius:3px;font-family:'IBM Plex Mono',monospace;font-size:12px}
+.msg.assistant hr{border:none;border-top:1px solid var(--border);margin:9px 0}
+.abtn{display:inline-block;margin-top:9px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:5px 11px;font-size:11.5px;cursor:pointer;color:var(--text2);transition:all .15s}
+.abtn:hover{border-color:var(--green);color:var(--green)}
+.stats-mini{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text3);margin-left:auto}
+.stats-mini b{color:var(--accent);font-weight:600}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px}
+@media(max-width:700px){aside{display:none}.g2,.g5{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">HC·<span>USP</span> Residência</div>
+  <div class="hright">
+    <span class="badge">Grupo A1 — MFR</span>
+    <span class="badge g">● IA pronta</span>
+    <button class="thbtn" onclick="toggleTheme()" aria-label="Alternar tema">☀</button>
+  </div>
+</header>
+<div class="layout">
+<aside>
+  <div class="nlabel">Análise</div>
+  <div class="nitem active" onclick="go('analise',this)"><span>📊</span> Mapeamento</div>
+  <div class="nitem" onclick="go('pegadinhas',this)"><span>⚠️</span> Pegadinhas</div>
+  <div class="nitem" onclick="go('heatmap',this)"><span>🔥</span> Mapa de Calor</div>
+  <div class="nlabel" style="margin-top:10px">Módulos IA</div>
+  <div class="nitem" onclick="go('mod',this);setMod('simulado')"><span>🩺</span> Simulado USP</div>
+  <div class="nitem" onclick="go('mod',this);setMod('flashcard')"><span>⚡</span> Flashcards</div>
+  <div class="nitem" onclick="go('mod',this);setMod('revisao')"><span>📖</span> Revisão Guiada</div>
+</aside>
+<main>
+<div class="page active" id="page-analise">
+  <div class="ptitle">Mapeamento Estatístico — Provas USP 2024–2025</div>
+  <div class="psub">Análise de 480 questões · Grupos A1, A2, A3 · Acesso Direto</div>
+  <div class="g5">
+    <div class="sb"><div class="sl">Total analisado</div><div class="sv cb">480</div><div class="ss">questões (4 provas)</div></div>
+    <div class="sb"><div class="sl">Clínica Médica</div><div class="sv cb">~40%</div><div class="ss">46–50 q/prova</div></div>
+    <div class="sb"><div class="sl">Cirurgia</div><div class="sv cp">~20%</div><div class="ss">22–26 q/prova</div></div>
+    <div class="sb"><div class="sl">Pediatria</div><div class="sv ck">~17%</div><div class="ss">18–22 q/prova</div></div>
+    <div class="sb"><div class="sl">GO + Prev.</div><div class="sv cg">~23%</div><div class="ss">26–28 q/prova</div></div>
+  </div>
+  <div class="g2"><div class="card"><div class="ctitle">🫀 Clínica Médica — Subtópicos A1 2025</div>
+      <div class="br"><div class="bh"><span class="bn">Cardiologia</span><span class="bp">22%</span></div><div class="bbg"><div class="bf bblue" style="width:22%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Pneumologia</span><span class="bp">14%</span></div><div class="bbg"><div class="bf bblue" style="width:14%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Neurologia</span><span class="bp">13%</span></div><div class="bbg"><div class="bf bblue" style="width:13%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Hematologia</span><span class="bp">11%</span></div><div class="bbg"><div class="bf bblue" style="width:11%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Gastro/Hepato</span><span class="bp">10%</span></div><div class="bbg"><div class="bf bblue" style="width:10%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Infectologia</span><span class="bp">9%</span></div><div class="bbg"><div class="bf bblue" style="width:9%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Endocrinologia</span><span class="bp">8%</span></div><div class="bbg"><div class="bf bblue" style="width:8%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Reumatologia</span><span class="bp">7%</span></div><div class="bbg"><div class="bf bblue" style="width:7%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Nefrologia/Eletról.</span><span class="bp">6%</span></div><div class="bbg"><div class="bf bblue" style="width:6%"></div></div></div>
+  </div>
+  <div class="card"><div class="ctitle">📐 Distribuição por Grande Área</div>
+      <div class="br"><div class="bh"><span class="bn">Clínica Médica</span><span class="bp">40%</span></div><div class="bbg"><div class="bf bblue" style="width:40%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Cirurgia + Trauma + Ortopedia</span><span class="bp">20%</span></div><div class="bbg"><div class="bf bpink" style="width:20%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Pediatria (neonatal + clín. ped.)</span><span class="bp">17%</span></div><div class="bbg"><div class="bf byellow" style="width:17%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Ginecologia & Obstetrícia</span><span class="bp">14%</span></div><div class="bbg"><div class="bf bteal" style="width:14%"></div></div></div>
+      <div class="br"><div class="bh"><span class="bn">Medicina Preventiva & Social</span><span class="bp">9%</span></div><div class="bbg"><div class="bf bgreen" style="width:9%"></div></div></div>
+      <hr class="div" style="margin:14px 0 10px"><div class="ctitle" style="margin-bottom:8px">🎯 Perfil de Cobrança USP</div>
+      <div class="tlist"><span class="tag hot">Caso clínico longo</span><span class="tag hot">ECG obrigatório</span><span class="tag hot">Gasometria</span><span class="tag warn">Imagem radiológica</span><span class="tag warn">Espirometria</span><span class="tag warn">Hemograma interpretativo</span><span class="tag blue">Conduta imediata</span><span class="tag blue">1ª droga a administrar</span><span class="tag ok">Prevenção primária</span></div>
+  </div></div>
+</div>
+<div class="page" id="page-pegadinhas">
+  <div class="ptitle">Anatomia das Pegadinhas & Notas de Rodapé</div>
+  <div class="psub">Distratores mais comuns · Critérios de exceção · Protocolos HC-FMUSP · Filtro A1</div>
+  <div class="fn red"><div class="ft">🚨 Filtro Grupo A1 — O que mata candidato de MFR</div>
+  Para MFR: <strong>ECG com bloqueios</strong>, <strong>diagnóstico diferencial de demências</strong> (Lewy vs Parkinson vs DFT), <strong>espirometria restritiva vs obstrutiva</strong>, <strong>DNPM</strong> e <strong>sequelas de lesão medular/AVC + reabilitação</strong>.</div>
+  <div class="sh">Top Pegadinhas Confirmadas nas Provas 2024–2025</div>
+  <table><thead><tr><th>Tema</th><th>Pegadinha USP</th><th>Detalhe Crítico</th><th>Risco</th></tr></thead><tbody>
+    <tr><td><strong>DM + Hb Glicada</strong></td><td>Paciente pós-transfusão com Hb glicada baixa</td><td>Hb glicada é falso-negativa pós-transfusão. Conduta: TTGO ou repetir glicemia em jejum.</td><td><span class="pill pr">ALTO</span></td></tr>
+    <tr><td><strong>SIADH</strong></td><td>Sertralina + hiponatremia</td><td>SSRIs causam SIADH. Suspender sertralina. Sódio urinário alto + osmolalidade sérica baixa.</td><td><span class="pill pr">ALTO</span></td></tr>
+    <tr><td><strong>IC FEr recuperada</strong></td><td>FEVE normaliza (54%) → sugere suspender</td><td>Não suspender. Manter terapia mesmo com recuperação de FE.</td><td><span class="pill pr">ALTO</span></td></tr>
+    <tr><td><strong>Dissecção Aórtica</strong></td><td>Dor torácica + HAS → nitroprussiato?</td><td>SEMPRE betabloqueador primeiro (esmolol EV). Nitroprussiato isolado piora dissecção.</td><td><span class="pill pr">ALTO</span></td></tr>
+    <tr><td><strong>Anemia Falciforme</strong></td><td>Transfusão → irradiação?</td><td>Fenotipagem estendida (Rh+Kell mínimo). Irradiação só para imunocomprometidos graves.</td><td><span class="pill pr">ALTO</span></td></tr>
+    <tr><td><strong>Pericardite + DRC</strong></td><td>ECG sela de montar em IRC</td><td>Evitar AINEs → prednisona VO.</td><td><span class="pill py">MÉDIO</span></td></tr>
+    <tr><td><strong>Guillain-Barré</strong></td><td>Paralisia + dengue prévia</td><td>Complicações = IR + disautonomia. Líquor: dissociação proteíno-citológica.</td><td><span class="pill pr">ALTO</span></td></tr>
+    <tr><td><strong>Demência de Lewy</strong></td><td>Flutuação + alucinações visuais</td><td>Rivastigmina. JAMAIS antipsicóticos típicos. Levodopa piora alucinações.</td><td><span class="pill pr">ALTO</span></td></tr>
+    <tr><td><strong>DRESS</strong></td><td>Exantema + eosinofilia + fenitoína</td><td>Anticonvulsivantes, 2–8sem, eosinófilos >1500, hepatite. Tto: suspender + corticoide.</td><td><span class="pill pr">ALTO</span></td></tr>
+    <tr><td><strong>DPOC vs Asma</strong></td><td>VEF₁/CVF 0,63 pré-BD</td><td>DPOC = VEF₁/CVF &lt;0,70 pós-broncodilatador.</td><td><span class="pill pr">ALTO</span></td></tr>
+  </tbody></table>
+</div>
+<div class="page" id="page-heatmap"><div class="ptitle">Mapa de Calor — Grupo A1 (MFR)</div><div class="psub">Frequência de temas nas provas A1 2024–2025</div>
+<div class="fn blue"><div class="ft">🎯 Lógica A1 para MFR</div>Domine <strong>Neurologia clínica, Ortopedia/Trauma, DNPM e Doenças neuromusculares</strong> para vantagem técnica real.</div>
+<div class="hgrid"><div class="hi h1"><div class="hl">Cardiologia</div><div class="hc">8–10</div><div class="hs">questões/prova</div></div><div class="hi h1"><div class="hl">Pneumologia</div><div class="hc">5–7</div><div class="hs">questões/prova</div></div><div class="hi h1"><div class="hl">Neurologia</div><div class="hc">5–7</div><div class="hs">vital A1/MFR</div></div><div class="hi h2"><div class="hl">Hematologia</div><div class="hc">4–6</div><div class="hs">questões/prova</div></div><div class="hi h2"><div class="hl">Infectologia</div><div class="hc">4–6</div><div class="hs">questões/prova</div></div><div class="hi h2"><div class="hl">Endocrinologia</div><div class="hc">3–5</div><div class="hs">questões/prova</div></div><div class="hi h3"><div class="hl">Trauma/Ortoped.</div><div class="hc">3–5</div><div class="hs">A1 estratégico</div></div><div class="hi h3"><div class="hl">Obstetrícia</div><div class="hc">4–6</div><div class="hs">questões/prova</div></div><div class="hi h4"><div class="hl">DNPM</div><div class="hc">1–3</div><div class="hs">A1 estratégico</div></div><div class="hi h4"><div class="hl">Preventiva</div><div class="hc">2–4</div><div class="hs">questões/prova</div></div></div></div>
+<div class="page" id="page-mod">
+  <div class="ptitle" id="modTitle">Módulos de Estudo — IA Integrada</div>
+  <div class="psub">Claude/OpenAI/Local · Padrão USP · Protocolos HC-FMUSP · <span style="color:var(--green)">● Progresso salvo automaticamente</span></div>
+  <div class="mtabs"><div class="mtab active" id="tab-simulado" onclick="setMod('simulado')">🩺 Simulado USP</div><div class="mtab" id="tab-flashcard" onclick="setMod('flashcard')">⚡ Flashcards</div><div class="mtab" id="tab-revisao" onclick="setMod('revisao')">📖 Revisão Guiada</div></div>
+  <div class="qa" id="qa"></div>
+  <div class="card" style="padding:0;overflow:hidden"><div class="chatbox" id="cb" style="padding:12px 14px"></div></div>
+  <div class="cirow"><textarea class="ci" id="ci" rows="1" onkeydown="hk(event)" oninput="ar(this)"></textarea><button class="clrbtn" onclick="clearHist()" title="Limpar histórico deste módulo">🗑</button><button class="sbtn" id="sb" onclick="send()">Enviar →</button></div>
+</div>
+</main>
+</div>
+<script>
+const MC={
+  simulado:{title:'🩺 Simulado — Casos Clínicos Padrão USP',ph:'Ex: "Caso de cardiologia nível difícil"',btns:[{l:'🫀 Cardio',m:'Gere um caso clínico padrão USP de cardiologia.'},{l:'🧠 Neurologia',m:'Gere um caso clínico padrão USP de neurologia.'},{l:'🫁 Pneumo',m:'Gere um caso padrão USP de pneumologia.'},{l:'🩸 Hemato',m:'Gere um caso padrão USP de hematologia.'},{l:'👶 DNPM/Ped',m:'Gere um caso clínico de DNPM ou triagem neonatal padrão USP.'},{l:'🤰 GO',m:'Gere um caso de pré-eclâmpsia ou HELLP padrão USP.'}],sys:'Você é o Preceptor-Chefe do HCFMUSP especialista em questões de residência USP.'},
+  flashcard:{title:'⚡ Flashcards — Notas de Rodapé & Pegadinhas',ph:'Ex: "10 flashcards de cardiologia"',btns:[{l:'⚡ Cardio',m:'10 flashcards de cardiologia focados em pegadinhas USP.'},{l:'⚡ Neuro',m:'10 flashcards de neurologia para A1/MFR.'},{l:'⚡ Hemato',m:'8 flashcards de hematologia com pegadinhas USP.'},{l:'⚡ Eletrólitos',m:'Flashcards sobre distúrbios eletrolíticos.'},{l:'⚡ DNPM',m:'Flashcards sobre desenvolvimento neuropsicomotor.'},{l:'⚡ GO',m:'Flashcards sobre obstetrícia.'}],sys:'Você é o Preceptor-Chefe do HCFMUSP.'},
+  revisao:{title:'📖 Revisão Guiada — Protocolos HC-FMUSP',ph:'Digite qualquer tema: "Pericardite"',btns:[{l:'📖 IC',m:'Revisão guiada de Insuficiência Cardíaca FEr.'},{l:'📖 DPOC+VNI',m:'Revisão guiada de DPOC.'},{l:'📖 AVC',m:'Revisão guiada de AVC isquêmico.'},{l:'📖 Falciforme',m:'Revisão guiada de Anemia Falciforme.'},{l:'📖 PE/HELLP',m:'Revisão guiada de Pré-eclâmpsia.'},{l:'📖 Lesão Medular',m:'Revisão guiada de Lesão Medular.'}],sys:'Você é o Preceptor-Chefe do HCFMUSP.'}
+};
+
+let curMod='simulado',hist=[],loading=false;
+const storage={
+  async get(k){
+    if(window.storage?.get) return window.storage.get(k);
+    return {value:localStorage.getItem(k)};
+  },
+  async set(k,v){
+    if(window.storage?.set) return window.storage.set(k,v);
+    localStorage.setItem(k,v);
+  },
+  async delete(k){
+    if(window.storage?.delete) return window.storage.delete(k);
+    localStorage.removeItem(k);
+  }
+};
+
+function go(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nitem').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+id)?.classList.add('active');
+  el?.classList.add('active');
+}
+
+async function loadHist(mod){
+  try{const r=await storage.get('hist:'+mod);return r&&r.value?JSON.parse(r.value):[];}catch{return [];}
+}
+async function saveHist(mod,h){
+  try{await storage.set('hist:'+mod,JSON.stringify(h.slice(-40)));}catch(e){console.error('save err',e);}
+}
+async function clearHist(){
+  if(!confirm('Apagar todo o histórico deste módulo?'))return;
+  await storage.delete('hist:'+curMod);hist=[];
+  document.getElementById('cb').innerHTML=`<div class="msg sys">Histórico limpo · ${MC[curMod].title}</div>`;updateStats();
+}
+
+async function setMod(m){
+  curMod=m;document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+m)?.classList.add('active');
+  const c=MC[m];document.getElementById('modTitle').textContent=c.title;
+  document.getElementById('ci').placeholder=c.ph;
+  document.getElementById('qa').innerHTML=c.btns.map((b,i)=>`<button class="qbtn" onclick="sq(${i})">${b.l}</button>`).join('')+'<span class="stats-mini" id="stm"></span>';
+  hist=await loadHist(m);const cb=document.getElementById('cb');cb.innerHTML='';
+  if(!hist.length){cb.innerHTML=`<div class="msg sys">Módulo ativado: ${c.title}</div>`;}else{cb.innerHTML=`<div class="msg sys">📂 ${hist.length} mensagens restauradas · ${c.title}</div>`;hist.forEach(msg=>renderMsg(msg.role,msg.content,true));}
+  updateStats();
+}
+function updateStats(){const stm=document.getElementById('stm');if(!stm)return;const u=hist.filter(h=>h.role==='user').length;stm.innerHTML=`<b>${u}</b> perguntas · <b>${hist.length}</b> msgs salvas`;}
+function sq(i){document.getElementById('ci').value=MC[curMod].btns[i].m;send();}
+function hk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}}
+function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,110)+'px';}
+function escapeHtml(value){return value.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');}
+
+async function runAi(prompt){
+  if(typeof window.claude?.complete==='function') return window.claude.complete(prompt);
+  if(typeof window.OPENAI_API_KEY==='string'&&window.OPENAI_API_KEY){
+    const res=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+window.OPENAI_API_KEY},body:JSON.stringify({model:'gpt-4.1-mini',input:prompt})});
+    if(!res.ok) throw new Error(`OpenAI HTTP ${res.status}`);
+    const data=await res.json();
+    return data.output_text || 'Sem resposta textual.';
+  }
+  return '⚠️ Nenhuma integração de IA configurada.\n\nPara publicar: use dentro do Claude (window.claude.complete) **ou** defina `window.OPENAI_API_KEY` antes de enviar mensagens.\n\nExemplo no console:\n`window.OPENAI_API_KEY = "sua-chave"`';
+}
+
+async function send(){
+  const inp=document.getElementById('ci');const txt=inp.value.trim();if(!txt||loading)return;
+  inp.value='';inp.style.height='auto';loading=true;document.getElementById('sb').disabled=true;
+  renderMsg('user',txt);hist.push({role:'user',content:txt});const tid=addTyping();
+  try{
+    const ctx=hist.slice(0,-1).slice(-8).map(m=>(m.role==='user'?'P: ':'R: ')+m.content.slice(0,500)).join('\n');
+    const prompt=`${MC[curMod].sys}\n\n${ctx?`Contexto anterior:\n${ctx}\n\n`:''}Pergunta do estudante de medicina:\n${txt}`;
+    const resp=await runAi(prompt);removeTyping(tid);
+    if(resp&&typeof resp==='string'&&resp.trim()){
+      hist.push({role:'assistant',content:resp});
+      let render=resp;
+      if(render.includes('||GABARITO||')){const [body,gab]=render.split('||GABARITO||');render=body+`\n<button class="abtn" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">👁 Revelar Gabarito & Explicação</button><span style="display:none">${gab}</span>`;}
+      renderMsg('assistant',render);await saveHist(curMod,hist);updateStats();
+    } else renderMsg('assistant','⚠️ Resposta vazia da API.');
+  }catch(e){removeTyping(tid);renderMsg('assistant',`⚠️ Exceção: ${escapeHtml(e.message||String(e))}`);}finally{loading=false;document.getElementById('sb').disabled=false;document.getElementById('ci').focus();}
+}
+
+function renderMsg(role,text,skipScroll){
+  const cb=document.getElementById('cb');const d=document.createElement('div');d.className='msg '+role;
+  if(role==='assistant'){
+    const safe=escapeHtml(text)
+      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+      .replace(/`(.+?)`/g,'<code>$1</code>')
+      .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+      .replace(/^#### (.+)$/gm,'<h4>$1</h4>')
+      .replace(/^---$/gm,'<hr>')
+      .replace(/\n/g,'<br>');
+    d.innerHTML=safe;
+  } else d.textContent=text;
+  cb.appendChild(d);if(!skipScroll)cb.scrollTop=cb.scrollHeight;
+}
+let tc=0;
+function addTyping(){const cb=document.getElementById('cb');const id='t'+(++tc);const d=document.createElement('div');d.id=id;d.className='typing';d.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>';cb.appendChild(d);cb.scrollTop=cb.scrollHeight;return id;}
+function removeTyping(id){document.getElementById(id)?.remove();}
+function toggleTheme(){document.body.classList.toggle('light');document.querySelector('.thbtn').textContent=document.body.classList.contains('light')?'🌙':'☀';}
+setMod('simulado');
+</script>
+</body>
+</html>
